@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+beatsaber-plugin/.vs/
+beatsaber-plugin/BeatSaberTwitchOverlay/bin/
+beatsaber-plugin/BeatSaberTwitchOverlay/obj/

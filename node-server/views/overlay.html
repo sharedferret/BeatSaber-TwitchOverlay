@@ -1,0 +1,199 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/loading-bar.css" />
+    </head>
+
+    <body>
+        <style>
+            .footerSong {
+                position: fixed;
+                left: 170;
+                bottom: 0;
+                width: 40%;
+                height: 160;
+                color:white;
+                text-align: left;
+            }
+            .footerProgress {
+                position: fixed;
+                width: 170px;
+                height: 170px;
+                left: 10;
+                bottom: 14;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 20px;
+
+            }
+            .footerDifficulty {
+                position: fixed;
+                right: 20;
+                bottom: 5;
+                width: 30%;
+                height: 150;
+                color:white;
+                text-align: right;
+                padding-top: 20px;
+            }
+            .FooterText {
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                white-space: pre;
+                padding-left: 20px;
+                line-height: 30px;
+            }
+            .FooterTextBold {
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                white-space: pre;
+                padding-left: 20px;
+                line-height: 30px;
+                font-weight: bold;
+            }
+            .SongName {
+                font-size: 3.0em;
+                font-weight: 700;
+                font-family: Arial, Helvetica, sans-serif;
+                white-space: pre;
+                padding-left: 20px;
+                line-height: 50px;
+            }
+            .SongSubName {
+                font-size: 1.5em;
+                font-family: Arial, Helvetica, sans-serif;
+                white-space: pre;
+                padding-left: 20px;
+                line-height: 40px;
+            }
+            .Author {
+                font-size: 1.5em;
+                font-family: Arial, Helvetica, sans-serif;
+                white-space: pre;
+                padding-left: 20px;
+                line-height: 30px;
+                font-style: italic;
+            }
+            .ldBar-label {
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 2.1em;
+                font-weight: 500;
+            }
+            h2 {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        </style>
+
+        <script src="/javascripts/loading-bar.min.js"></script>
+
+        <div class="footerSong">
+            <div>
+                <span class="SongName">Believer
+</span>
+                <span class="SongSubName">Imagine Dragons
+</span>
+                <span class="Author">Rustic
+</span>
+            </div>
+        </div>
+
+        <div class="footerProgress">
+            <div data-preset="circle" class="ldBar label-center" data-value="35" style="height:170;width:170" data-type="stroke" data-stroke-width="12"></div>
+        </div>
+
+        <div class="footerDifficulty">
+            <span class="footerText"><span style="font-weight:bold;">Difficulty:</span> <span class="SongDifficulty">Expert</span>
+<span style="font-weight:bold;">Notes:</span> <span class="SongNoteCount">546</span>
+<span style="font-weight:bold;">Obstacles:</span> <span class="SongObstacleCount">10</span>
+<span style="font-weight:bold;">BPM:</span> <span class="SongBPM">125</span>
+            </span>
+        </div>
+
+        <script src="/javascripts/velocity.min.js"></script>
+        <script>
+            const songNameElement = document.querySelector(".SongName");
+            const songSubNameElement = document.querySelector(".SongSubName");
+            const songAuthorElement = document.querySelector(".Author");
+
+            const songDifficultyElement = document.querySelector(".SongDifficulty");
+            const songNoteCountElement = document.querySelector(".SongNoteCount");
+            const songObstacleCountElement = document.querySelector(".SongObstacleCount");
+            const songBPMElement = document.querySelector(".SongBPM");
+
+            const songInfoFooter = document.querySelector(".footerSong");
+            const songDifficultyFooter = document.querySelector(".footerDifficulty");
+            const songProgressFooter = document.querySelector(".footerProgress");
+            const songProgress = document.querySelector(".ldBar");
+
+            const progressBar = new ldBar('.ldBar');
+            var progressTimer = null;
+
+            // Start by hiding the footer
+            Velocity(songInfoFooter, 'slideUp', { duration: 0 });
+            Velocity(songDifficultyFooter, 'slideUp', { duration: 0 });
+            Velocity(songProgressFooter, 'slideUp', { duration: 0 });
+
+            var es = new EventSource('/stream');
+            es.onmessage = function(event) {
+                if (event.data) {
+                    const data = JSON.parse(event.data);
+                    console.log(data);
+
+                    // Check state and update fields appropriately
+                    if (data.state == "PlayingSong") {
+                        // New song, update all fields and mark divs as visible
+                        songNameElement.textContent = data.songName + "\n";
+                        songSubNameElement.textContent = data.songSubName + "\n";
+                        songAuthorElement.textContent = data.authorName + "\n";
+
+                        songDifficultyElement.textContent = data.difficulty;
+                        songNoteCountElement.textContent = data.notesCount;
+                        songObstacleCountElement.textContent = data.obstaclesCount;
+                        songBPMElement.textContent = data.bpm;
+
+                        progressBar.set(0);
+
+                        const startTime = new Date();
+                        const endTime = new Date() + (data.songLength * 1000);
+
+                        if (progressTimer) {
+                            clearInterval(progressTimer);
+                        }
+
+                        progressTimer = setInterval(function() {
+                            const timeElapsed = (new Date() - startTime) / 1000;
+                            const percentElapsed = timeElapsed / data.songLength;
+                            
+                            if (percentElapsed < 1) {
+                                progressBar.set(percentElapsed * 100);
+                            } else {
+                                progressBar.set(100);
+                            }
+                            
+                        }, 1000);
+
+                        // Slide footers into view
+                        Velocity(songInfoFooter, 'slideDown', { duration: 1500 });
+                        Velocity(songDifficultyFooter, 'slideDown', { duration: 1500 });
+                        Velocity(songProgressFooter, 'slideDown', { duration: 1500 });
+                    } else if (data.state = "Menu") {
+                        Velocity(songInfoFooter, 'slideUp', { duration: 1500 });
+                        Velocity(songDifficultyFooter, 'slideUp', { duration: 1500 });
+                        Velocity(songProgressFooter, 'slideUp', { duration: 1500 });
+
+                        if (progressTimer) {
+                            clearInterval(progressTimer);
+                        }
+                    }
+                }
+            }
+
+            // Not used
+            es.addEventListener(eventName, function(event) {
+                if (event.data) {
+                    const data = JSON.parse(event.data);
+                    console.log(data);
+                }
+            })
+        </script>
+    </body>
+</html>
