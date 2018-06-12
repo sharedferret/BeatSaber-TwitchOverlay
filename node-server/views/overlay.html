@@ -1,199 +1,289 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/loading-bar.css" />
+        <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Montserrat:700,900" rel="stylesheet">
+
     </head>
-
+    <style>
+        .TopBar {
+            position: fixed;
+            width: 100%;
+            height: 67px;
+            background-image: url("/images/topbar_1280.png")
+        }
+        .StreamName {
+            position: fixed;
+            width: 100px;
+            height: 50px;
+            top: 8px;
+            left: 60px;
+        }
+        .StreamNameText {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 38px;
+            color: white;
+            font-weight: 700;
+        }
+        .SongHeader {
+            position: fixed;
+            top: 0px;
+            left: 350px;
+            width: 700px;
+            height: 50px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .HeaderSongTitleText {
+            font-family: 'Kanit', sans-serif;
+            font-size: 36px;
+            color: white;
+            font-weight: bold;
+        }
+        .HeaderSongSubTitleText {
+            font-family: 'Kanit', sans-serif;
+            font-size: 18px;
+            color: white;
+            font-style: italic;
+            padding-left: 10px;
+        }
+        .SongInfoFooter {
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            width: 1280px;
+            height: 133px;
+            background-image: url('/images/bottombar.png')
+        }
+        .FooterSectionTitle {
+            position: absolute;
+            color: lightgrey;
+            font-family: 'Kanit', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+        }
+        #difficultyFooterSectionTitle {
+            left: 579px;
+            top: 48px;
+        }
+        #notesFooterSectionTitle {
+            left: 812px;
+            top: 48px;
+        }
+        #obstaclesFooterSectionTitle {
+            left: 1062px;
+            top: 48px;
+        }
+        #songProgressFooterSectionTitle {
+            left: 40px;
+            top: 119px;
+        }
+        .FooterSectionContent {
+            position: absolute;
+            color: white;
+            font-family: 'Kanit', sans-serif;
+            font-size: 26px;
+        }
+        #difficultyFooterSectionContent {
+            left: 632px;
+            top: 30px;
+        }
+        #notesFooterSectionContent {
+            left: 862px;
+            top: 30px;
+        }
+        #obstaclesFooterSectionContent {
+            left: 1122px;
+            top: 30px;
+        }
+        .FooterSongProgressChart {
+            position: absolute;
+            top: 70px;
+            left: 55px;
+            width: 1225px;
+            height: 50px;
+        }
+    </style>
     <body>
-        <style>
-            .footerSong {
-                position: fixed;
-                left: 170;
-                bottom: 0;
-                width: 40%;
-                height: 160;
-                color:white;
-                text-align: left;
-            }
-            .footerProgress {
-                position: fixed;
-                width: 170px;
-                height: 170px;
-                left: 10;
-                bottom: 14;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 20px;
-
-            }
-            .footerDifficulty {
-                position: fixed;
-                right: 20;
-                bottom: 5;
-                width: 30%;
-                height: 150;
-                color:white;
-                text-align: right;
-                padding-top: 20px;
-            }
-            .FooterText {
-                font-size: 20px;
-                font-family: Arial, Helvetica, sans-serif;
-                white-space: pre;
-                padding-left: 20px;
-                line-height: 30px;
-            }
-            .FooterTextBold {
-                font-size: 20px;
-                font-family: Arial, Helvetica, sans-serif;
-                white-space: pre;
-                padding-left: 20px;
-                line-height: 30px;
-                font-weight: bold;
-            }
-            .SongName {
-                font-size: 3.0em;
-                font-weight: 700;
-                font-family: Arial, Helvetica, sans-serif;
-                white-space: pre;
-                padding-left: 20px;
-                line-height: 50px;
-            }
-            .SongSubName {
-                font-size: 1.5em;
-                font-family: Arial, Helvetica, sans-serif;
-                white-space: pre;
-                padding-left: 20px;
-                line-height: 40px;
-            }
-            .Author {
-                font-size: 1.5em;
-                font-family: Arial, Helvetica, sans-serif;
-                white-space: pre;
-                padding-left: 20px;
-                line-height: 30px;
-                font-style: italic;
-            }
-            .ldBar-label {
-                color: white;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 2.1em;
-                font-weight: 500;
-            }
-            h2 {
-                font-family: Arial, Helvetica, sans-serif;
-            }
-        </style>
-
-        <script src="/javascripts/loading-bar.min.js"></script>
-
-        <div class="footerSong">
-            <div>
-                <span class="SongName">Believer
-</span>
-                <span class="SongSubName">Imagine Dragons
-</span>
-                <span class="Author">Rustic
-</span>
-            </div>
-        </div>
-
-        <div class="footerProgress">
-            <div data-preset="circle" class="ldBar label-center" data-value="35" style="height:170;width:170" data-type="stroke" data-stroke-width="12"></div>
-        </div>
-
-        <div class="footerDifficulty">
-            <span class="footerText"><span style="font-weight:bold;">Difficulty:</span> <span class="SongDifficulty">Expert</span>
-<span style="font-weight:bold;">Notes:</span> <span class="SongNoteCount">546</span>
-<span style="font-weight:bold;">Obstacles:</span> <span class="SongObstacleCount">10</span>
-<span style="font-weight:bold;">BPM:</span> <span class="SongBPM">125</span>
-            </span>
-        </div>
-
         <script src="/javascripts/velocity.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+
+        <div class="TopBar" id="topBar">
+            <div class="StreamName" id="streamName"><span class="StreamNameText">YuruYui</span></div>
+            <div class="SongHeader" id="songHeader"><span class="HeaderSongTitleText"></span>   <span class="HeaderSongSubTitleText"></span></span></div>
+        </div>
+        <div class="SongInfoFooter" id="songInfoFooter">
+            <div class="FooterSectionTitle" id="difficultyFooterSectionTitle">Difficulty</div>
+            <div class="FooterSectionContent" id="difficultyFooterSectionContent"></div>
+            <div class="FooterSectionTitle" id="notesFooterSectionTitle">Notes</div>
+            <div class="FooterSectionContent" id="notesFooterSectionContent"></div>
+            <div class="FooterSectionTitle" id="obstaclesFooterSectionTitle">Obstacles</div>
+            <div class="FooterSectionContent" id="obstaclesFooterSectionContent"></div>
+
+            <div class="FooterSectionTitle" id="songProgressFooterSectionTitle">Song Progress</div>
+            <div class="FooterSongProgressChart" id="songProgressChart"></div>
+        </div>
+        <div class="SongResultsTab" id="songResultsTab"></div>
+
         <script>
-            const songNameElement = document.querySelector(".SongName");
-            const songSubNameElement = document.querySelector(".SongSubName");
-            const songAuthorElement = document.querySelector(".Author");
+            // Get references to divs we need to show/hide
+            const songHeaderDiv = document.querySelector("#songHeader");
+            const songInfoFooterDiv = document.querySelector("#songInfoFooter");
 
-            const songDifficultyElement = document.querySelector(".SongDifficulty");
-            const songNoteCountElement = document.querySelector(".SongNoteCount");
-            const songObstacleCountElement = document.querySelector(".SongObstacleCount");
-            const songBPMElement = document.querySelector(".SongBPM");
+            // Text fields we need to update
+            const songTitleHeaderText = document.querySelector(".HeaderSongTitleText");
+            const songSubTitleHeaderText = document.querySelector(".HeaderSongSubTitleText");
+            const songDifficultyFooterText = document.querySelector("#difficultyFooterSectionContent");
+            const songNoteCountFooterText = document.querySelector("#notesFooterSectionContent");
+            const songObstacleCountFooterText = document.querySelector("#obstaclesFooterSectionContent");
 
-            const songInfoFooter = document.querySelector(".footerSong");
-            const songDifficultyFooter = document.querySelector(".footerDifficulty");
-            const songProgressFooter = document.querySelector(".footerProgress");
-            const songProgress = document.querySelector(".ldBar");
+            // The d3-backed song progress chart div
+            const songProgressChart = document.querySelector("#songProgressChart");
 
-            const progressBar = new ldBar('.ldBar');
-            var progressTimer = null;
+            // D3 variables
+            let svg, d3DataPlot, xMap, yMap, color, cValue;
+            let songData = [];
 
-            // Start by hiding the footer
-            Velocity(songInfoFooter, 'slideUp', { duration: 0 });
-            Velocity(songDifficultyFooter, 'slideUp', { duration: 0 });
-            Velocity(songProgressFooter, 'slideUp', { duration: 0 });
+            const ranks = ['E', 'D', 'C', 'B', 'A', 'S', 'SS', 'SSS'];
 
-            var es = new EventSource('/stream');
-            es.onmessage = function(event) {
-                if (event.data) {
-                    const data = JSON.parse(event.data);
-                    console.log(data);
+            // Hide the footer and song info div at startup
+            Velocity(songInfoFooterDiv, 'slideUp', { duration: 0 });
+            Velocity(songHeaderDiv, 'slideUp', { duration: 0 });
 
-                    // Check state and update fields appropriately
-                    if (data.state == "PlayingSong") {
-                        // New song, update all fields and mark divs as visible
-                        songNameElement.textContent = data.songName + "\n";
-                        songSubNameElement.textContent = data.songSubName + "\n";
-                        songAuthorElement.textContent = data.authorName + "\n";
+            const es = new EventSource('/stream');
 
-                        songDifficultyElement.textContent = data.difficulty;
-                        songNoteCountElement.textContent = data.notesCount;
-                        songObstacleCountElement.textContent = data.obstaclesCount;
-                        songBPMElement.textContent = data.bpm;
+            function setupD3(songChart) {
+                // Clear any existing charts
+                d3.select('#songProgressChart').selectAll('*').remove();
 
-                        progressBar.set(0);
+                // Create song data
+                songData = [];
 
-                        const startTime = new Date();
-                        const endTime = new Date() + (data.songLength * 1000);
-
-                        if (progressTimer) {
-                            clearInterval(progressTimer);
-                        }
-
-                        progressTimer = setInterval(function() {
-                            const timeElapsed = (new Date() - startTime) / 1000;
-                            const percentElapsed = timeElapsed / data.songLength;
-                            
-                            if (percentElapsed < 1) {
-                                progressBar.set(percentElapsed * 100);
-                            } else {
-                                progressBar.set(100);
-                            }
-                            
-                        }, 1000);
-
-                        // Slide footers into view
-                        Velocity(songInfoFooter, 'slideDown', { duration: 1500 });
-                        Velocity(songDifficultyFooter, 'slideDown', { duration: 1500 });
-                        Velocity(songProgressFooter, 'slideDown', { duration: 1500 });
-                    } else if (data.state = "Menu") {
-                        Velocity(songInfoFooter, 'slideUp', { duration: 1500 });
-                        Velocity(songDifficultyFooter, 'slideUp', { duration: 1500 });
-                        Velocity(songProgressFooter, 'slideUp', { duration: 1500 });
-
-                        if (progressTimer) {
-                            clearInterval(progressTimer);
+                for (const line of songChart) {
+                    for (const songObject of line.songObjectsData) {
+                        if (songObject.noteType != null) {
+                            // Add note
+                            songData.push({
+                                id: songObject.id,
+                                time: songObject.time,
+                                noteType: songObject.noteType,
+                                lineIndex: 3 - songObject.lineIndex,
+                                noteLineLayer: songObject.noteLineLayer
+                            });
                         }
                     }
                 }
+
+                const margin = { top: 0, right: 0, bottom: 0, left: 0 };
+                const width = 1225;
+                const height = 50;
+
+                const xValue = d => { return d.time };
+                const xScale = d3.scale.linear().range([0, width]);
+                xMap = d => { return xScale(xValue(d)); };
+                
+                const yValue = d => { return d.lineIndex; };
+                const yScale = d3.scale.linear().range([height, 0]);
+                yMap = d => { return yScale(yValue(d)); };
+
+                cValue = d => { return d.noteType };
+                color = d3.scale.ordinal()
+                    .domain([0, 1, 2, 3, 4, 5])
+                    .range(['#faf', '#aff', 'gray', 'gray', 'green', 'red']);
+
+                svg = d3.select('#songProgressChart').append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .append('g');
+                
+                xScale.domain([d3.min(songData, xValue)-1, d3.max(songData, xValue)+1]);
+                yScale.domain([d3.min(songData, yValue)-1, d3.max(songData, yValue)+1]);
+
+                // Draw plot
+                d3DataPlot = svg.selectAll('.dot')
+                    .data(songData)
+                    .enter().append('rect')
+                    .attr('class', 'dot')
+                    .attr('width', 2)
+                    .attr('height', 8)
+                    .attr('x', xMap)
+                    .attr('y', yMap)
+                    .style('fill', d => { return color(cValue(d)); });
             }
 
-            // Not used
-            es.addEventListener(eventName, function(event) {
-                if (event.data) {
-                    const data = JSON.parse(event.data);
-                    console.log(data);
+            // The handler for any data the Beat Saber plugin sends
+            es.onmessage = event => {
+                if (event.data == null) { return; }
+
+                const data = JSON.parse(event.data);
+
+                // Check the Action of the update
+                if (data.Action == 'PlayingSong') {
+                    // New song update
+                    // Update all song fields, draw the progress chart, and make the divs visible
+
+                    songTitleHeaderText.textContent = data.SongName;
+                    const subNames = [];
+                    if (data.SongSubName) subNames.push(data.SongSubName);
+                    if (data.AuthorName) subNames.push(data.AuthorName);
+                    songSubTitleHeaderText.textContent = subNames.join(' · ');;
+
+                    songDifficultyFooterText.textContent = data.Difficulty;
+                    songNoteCountFooterText.textContent = data.NotesCount;
+                    songObstacleCountFooterText.textContent = data.ObstaclesCount;
+
+                    // D3 chart setup
+                    setupD3(data.SongData);
+
+                    // Slide content into view
+                    Velocity(songInfoFooterDiv, 'slideDown', { duration: 1500 });
+                    Velocity(songHeaderDiv, 'slideDown', { duration: 1500 });
+                } else if (data.Action == 'Menu') {
+                    // Hide footer/song info div
+                    Velocity(songInfoFooterDiv, 'slideUp', { duration: 1500 });
+                    Velocity(songHeaderDiv, 'slideUp', { duration: 1500 });
+                } else if (data.Action == 'SongResults') {
+                    // Hide footer/song info divs
+                    Velocity(songInfoFooterDiv, 'slideUp', { delay: 6000, duration: 1500 });
+                    Velocity(songHeaderDiv, 'slideUp', { delay: 6000, duration: 1500 });
+
+
+                    // TODO: Create a results tab or rotate results data on the footer
+                } else if (data.Event == 'Note Cut' && songData && songData.length > 0) {
+                    // Update D3 chart
+                    for (const i in songData) {
+                        if (songData[i].id == parseInt(data['Note ID'])) {
+                            if (data.IsCutOK == 'true' && songData[i].noteType <= 1) {
+                                songData[i].noteType = 4;
+                            } else {
+                                songData[i].noteType = 5;
+                            }
+                        }
+                    }
+
+                    d3DataPlot = d3DataPlot.data(songData);
+                    d3DataPlot
+                        .attr('width', 2)
+                        .attr('height', 8)
+                        .attr('x', xMap)
+                        .attr('y', yMap)
+                        .style('fill', d => { return color(cValue(d)); });
+                } else if (data.Event == 'Note Missed' && songData && songData.length > 0) {
+                    // Update D3 chart
+                    for (const i in songData) {
+                        if (songData[i].id == parseInt(data['Note ID'] && songData[i].noteType <= 1)) {
+                            songData[i].noteType = 5;
+                        }
+                    }
+
+                    d3DataPlot = d3DataPlot.data(songData);
+                    d3DataPlot
+                        .attr('width', 2)
+                        .attr('height', 8)
+                        .attr('x', xMap)
+                        .attr('y', yMap)
+                        .style('fill', d => { return color(cValue(d)); });
                 }
-            })
+            }
         </script>
     </body>
 </html>

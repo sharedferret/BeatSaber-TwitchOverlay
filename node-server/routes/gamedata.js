@@ -7,10 +7,11 @@ router.post('/', function(req, res, next) {
     res.send(JSON.stringify({ status: 'ok' }));
 
     // log output here
-    console.log(req.body);
+    const data = req.body.Data ? JSON.parse(req.body.Data) : req.body;
+    console.log(data);
 
     // Forward via SSE
-    sse.serialize(req.body);
+    sse.serialize(data);
 });
 
 module.exports = router;

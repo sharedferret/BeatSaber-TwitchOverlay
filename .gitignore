@@ -60,3 +60,4 @@ typings/
 beatsaber-plugin/.vs/
 beatsaber-plugin/BeatSaberTwitchOverlay/bin/
 beatsaber-plugin/BeatSaberTwitchOverlay/obj/
+beatsaber-plugin/packages/
